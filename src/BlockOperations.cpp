@@ -11,6 +11,15 @@ unsigned char GetLastTwoBits (Block *blk) {
 	return byteVal & mask;
 }
 
+unsigned char GetFirstTwoBits (Block *blk) {
+	unsigned char byteVal = blk->byte[0];
+	unsigned char twoMSBMask = 0xC0; // 11000000
+	unsigned char pushMask = 0x3; // 00000011
+	byteVal = byteVal & twoMSBMask; // get the 2 msb
+	byteVal = byteVal >> 6; //push it to LSB
+	return byteVal & pushMask; //return sanitized first 2 bits
+}
+
 void ModifyLastTwoBits (Block *blk, unsigned char val){
 	unsigned char lastbyte = blk->byte[7];
 	unsigned char mask = 0x3; // 00000011
@@ -19,6 +28,16 @@ void ModifyLastTwoBits (Block *blk, unsigned char val){
 	unsigned char newVal = val & mask;
 	newLastByte = newLastByte | newVal;
 	blk->byte[7] = newLastByte;
+}
+
+void ModifyFirstTwoBits (Block *blk, unsigned char val){
+	unsigned char firstByte = blk->byte[0];
+	unsigned char mask = 0xC0; // 11000000
+	unsigned char newFirstByte = firstByte & (~mask); //delete first 2 bits
+	//set proper val and sanitize val
+	unsigned char newVal = (val << 6) & mask;
+	newFirstByte = newFirstByte | newVal;
+	blk->byte[0] = newFirstByte;
 }
 
 void PrimusShift (Block *blk) {

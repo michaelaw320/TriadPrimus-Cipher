@@ -15,7 +15,9 @@
 #include "Block.h"
 
 unsigned char GetLastTwoBits (Block *blk);
+unsigned char GetFirstTwoBits (Block *blk);
 void ModifyLastTwoBits (Block *blk, unsigned char val);
+void ModifyFirstTwoBits (Block *blk, unsigned char val);
 void PrimusShift (Block *blk);
 
 #endif /* SRC_BLOCKOPERATIONS_H_ */
