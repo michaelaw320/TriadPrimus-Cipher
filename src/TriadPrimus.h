@@ -13,6 +13,9 @@
 #ifndef SRC_TRIADPRIMUS_H_
 #define SRC_TRIADPRIMUS_H_
 
+#include "Block.h"
+#include "BlockOperations.h"
+
 class TriadPrimus {
 public:
 	TriadPrimus();
