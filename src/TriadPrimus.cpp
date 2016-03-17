@@ -16,3 +16,11 @@ TriadPrimus::~TriadPrimus() {
 	// TODO Auto-generated destructor stub
 }
 
+//ntar algonya
+/**
+ * For each block do
+ * GetLastTwoBits(&blk);
+ * di XOR sama bit kunci
+ * ModifyLastTwoBits(&blk, xored value);
+ * PrimusShift(&blk);
+ */
