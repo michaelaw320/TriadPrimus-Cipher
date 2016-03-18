@@ -13,29 +13,27 @@ CommandLineParser::CommandLineParser() {
 	BINARY_MODE = false;
 	INPUT_FILE = NULL;
 	OUTPUT_FILE = NULL;
-	OPT_ALGO = NULL;
-	OPT_OUTPUT_FORMAT = NULL;
+	OPT_MODE = NULL;
 	KEY = NULL;
-	OUTPUT_FMT_NORMAL = "normal";
-	OUTPUT_FMT_NOSPACE = "wo_space";
-	OUTPUT_FMT_FIVE = "five";
 
-	ALGO_VIG_STD = "vig_std";
-	ALGO_VIG_EXT = "vig_ext";
-	ALGO_PLAYFAIR = "playfair";
+	MODE_ECB = "ECB";
+	MODE_CBC = "CBC";
+	MODE_CFB = "CFB";
 }
 
 bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 	int c;
 	while (1) {
 		static struct option long_options[] = {
-				{ "encrypt", no_argument, 0, 'e' }, { "decrypt", no_argument, 0,
-						'd' }, { "binary", no_argument, 0, 'b' }, { "help",
-						no_argument, 0, 'h' }, { "input", required_argument, 0,
-						'i' }, { "output", required_argument, 0, 'o' }, {
-						"algorithm", required_argument, 0, 'a' }, { "format",
-						required_argument, 0, 'f' }, { "key", required_argument,
-						0, 'k' }, { 0, 0, 0, 0 } };
+				{ "encrypt", no_argument, 0, 'e' },
+				{ "decrypt", no_argument, 0, 'd' },
+				{ "binary", no_argument, 0, 'b' },
+				{ "help", no_argument, 0, 'h' },
+				{ "input", required_argument, 0, 'i' },
+				{ "output", required_argument, 0, 'o' },
+				{ "mode", required_argument, 0, 'm' },
+				{ "key", required_argument, 0, 'k' },
+				{ 0, 0, 0, 0 } };
 		/* getopt_long stores the option index here. */
 		int option_index = 0;
 
@@ -72,12 +70,8 @@ bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 			OUTPUT_FILE = optarg;
 			break;
 
-		case 'a':
-			OPT_ALGO = optarg;
-			break;
-
-		case 'f':
-			OPT_OUTPUT_FORMAT = optarg;
+		case 'm':
+			OPT_MODE = optarg;
 			break;
 
 		case 'k':
@@ -112,27 +106,15 @@ bool CommandLineParser::CHECK_PARAM() {
 	} else if (OUTPUT_FILE == NULL) {
 		std::cerr << "Please specify output" << std::endl;
 		return false;
-	} else if (stricmp(OPT_ALGO, ALGO_VIG_STD) != 0
-			&& stricmp(OPT_ALGO, ALGO_VIG_EXT) != 0
-			&& stricmp(OPT_ALGO, ALGO_PLAYFAIR) != 0) {
-		std::cerr << "Valid algorithm option is vig_std or vig_ext or playfair"
-				<< std::endl;
-		return false;
-	} else if (stricmp(OPT_OUTPUT_FORMAT, OUTPUT_FMT_NORMAL) != 0
-			&& stricmp(OPT_OUTPUT_FORMAT, OUTPUT_FMT_NOSPACE) != 0
-			&& stricmp(OPT_OUTPUT_FORMAT, OUTPUT_FMT_FIVE) != 0) {
-		std::cerr << "Valid output format option is normal or wo_space or five"
+	} else if (stricmp(OPT_MODE, MODE_ECB) != 0
+			&& stricmp(OPT_MODE, MODE_CBC) != 0
+			&& stricmp(OPT_MODE, MODE_CFB) != 0) {
+		std::cerr << "Valid algorithm option is ECB or CBC or CFB"
 				<< std::endl;
 		return false;
 	} else if (KEY == NULL) {
 		std::cerr << "Please specify key" << std::endl;
 		return false;
-	} else if (strlen(KEY) > 25) {
-		std::cerr << "Key is more than 25 characters" << std::endl;
-		return false;
-	} else if (BINARY_MODE) {
-		OPT_ALGO = "vig_ext";
-		OPT_OUTPUT_FORMAT = "normal";
 	}
 	return true;
 }
@@ -143,7 +125,7 @@ void CommandLineParser::PRINT_HELP(char *exeName) {
 	printf("--help, -h \t: Print this help\n");
 	printf("--encrypt, -e \t: Encrypt Mode\n");
 	printf("--decrypt, -d \t: Decrypt Mode\n");
-	printf("--binary, -b \t: Operates in binary mode, algo must be vig_ext\n");
+	printf("--binary, -b \t: Operates in binary mode, algo must be CBC\n");
 	printf("--input <input_file>, -i <input_file> : Specify input file\n");
 	printf("\tUse \"stdin\" for keyboard input\n\n");
 	printf("--output <output_file>, -o <output_file> : Specify input file\n");
@@ -151,10 +133,10 @@ void CommandLineParser::PRINT_HELP(char *exeName) {
 	printf(
 			"--key <string>, -k <string> : Key for encryption/decryption (max 25 chars)\n\n");
 	printf(
-			"--algorithm <string>, -a <string> : Available algorithm: vig_std, vig_ext, playfair\n");
-	printf("\tvig_std  : Vigenere Cipher Standard (26 Alphabets)\n");
-	printf("\tvig_ext  : Vigenere Cipher Extended (256 ASCII Chars)\n");
-	printf("\tplayfair : Playfair Cipher\n\n");
+			"--algorithm <string>, -a <string> : Available algorithm: ECB, CBC, CFB\n");
+	printf("\tECB  : Electronic Code Book mode\n");
+	printf("\tCBC  : Cipher Block Chaining mode\n");
+	printf("\tCFB : CFB-8bit mode\n\n");
 	printf(
 			"--format <string>, -f <string> : Specify output format: normal, wo_space, five\n");
 	printf("\tnormal   : Same as input\n");

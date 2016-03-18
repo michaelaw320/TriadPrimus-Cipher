@@ -8,8 +8,14 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
+#include <vector>
 #include "CommandLineParser.h"
 #include "IOUtil.h"
+#include "Preprocessor.h"
+#include "Block.h"
+#include "TriadPrimus.h"
+#include "NewGeneration.h"
+#include "ModeSelector.h"
 using namespace std;
 
 int main(int argc, char **argv) {
@@ -38,6 +44,20 @@ int main(int argc, char **argv) {
 		}
 	}
 	//Add main code for cipher here
+	unsigned char* ptrToData = (unsigned char*) utils.getInputData();
+	int inputDataLen = utils.getInputLen();
+	string key(parser.KEY);
+
+	Preprocessor dataProcessor(ptrToData, inputDataLen);
+	vector<Block>* ptrToBlocks = dataProcessor.getPtrToBlocks();
+
+	if(parser.ENCRYPT_FLAG) {
+		//Encrypt Mode
+		NewGeneration generation;
+	} else {
+		//Decrypt Mode
+
+	}
 
 	//Set output data
 	utils.setOutputData("STUB");

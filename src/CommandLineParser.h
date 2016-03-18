@@ -23,17 +23,12 @@ public:
 	bool BINARY_MODE;
 	char* INPUT_FILE;
 	char* OUTPUT_FILE;
-	char* OPT_ALGO;
-	char* OPT_OUTPUT_FORMAT;
+	char* OPT_MODE;
 	char* KEY;
 
-	const char* OUTPUT_FMT_NORMAL;
-	const char* OUTPUT_FMT_NOSPACE;
-	const char* OUTPUT_FMT_FIVE;
-
-	const char* ALGO_VIG_STD;
-	const char* ALGO_VIG_EXT;
-	const char* ALGO_PLAYFAIR;
+	const char* MODE_ECB;
+	const char* MODE_CBC;
+	const char* MODE_CFB;
 
 	CommandLineParser();
 	bool PARSE_PARAM(int argc, char **argv);

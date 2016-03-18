@@ -14,8 +14,21 @@
 
 class Preprocessor {
 public:
-	Preprocessor();
+	Preprocessor(unsigned char* inputData, int inputLen);
 	virtual ~Preprocessor();
+	std::vector<Block>* getPtrToBlocks();
+	void generateOutput();
+	unsigned char* getOutputData();
+	int getOutputLen();
+private:
+	void copyToBlock(unsigned char* inputData,int inputLen);
+	void doPadding();
+	void removePadding();
+	unsigned char* inputData;
+	int inputLen;
+	unsigned char* output;
+	int outputLen;
+	std::vector<Block> blocks;
 };
 
 #endif /* SRC_PREPROCESSOR_H_ */
