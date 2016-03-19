@@ -5,6 +5,8 @@
  *      Author: Michael
  */
 
+#include "BlockOperations.h"
+
 unsigned char GetLastTwoBits (Block *blk) {
 	unsigned char byteVal = blk->byte[7];
 	unsigned char mask = 0x3; // 00000011

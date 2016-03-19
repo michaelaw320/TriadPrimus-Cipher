@@ -13,10 +13,11 @@
 #define SRC_MODESELECTOR_H_
 
 #include "Block.h"
+#include <vector>
 
 class ModeSelector {
 public:
-	ModeSelector(std::vector<Block>* ptrToBlocks);
+	ModeSelector();
 	virtual ~ModeSelector();
 };
 

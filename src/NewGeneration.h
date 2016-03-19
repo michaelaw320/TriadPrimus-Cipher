@@ -15,6 +15,7 @@
 
 #include "Block.h"
 #include <string>
+#include <vector>
 
 class NewGeneration {
 public:

@@ -51,16 +51,31 @@ int main(int argc, char **argv) {
 	Preprocessor dataProcessor(ptrToData, inputDataLen);
 	vector<Block>* ptrToBlocks = dataProcessor.getPtrToBlocks();
 
+	unsigned char* outputData;
 	if(parser.ENCRYPT_FLAG) {
 		//Encrypt Mode
-		NewGeneration generation;
+		if(stricmp(parser.OPT_MODE, parser.MODE_ECB)) {
+
+		}
+		//last stage, scramble before write
+		NewGeneration generation(key, ptrToBlocks);
+		generation.scramble();
+
+		dataProcessor.generateOutput(false);
 	} else {
 		//Decrypt Mode
+		//Descramble before doing anything
+		NewGeneration generation(key, ptrToBlocks);
+		generation.descramble();
 
+		dataProcessor.generateOutput(true);
 	}
 
+
+	outputData = dataProcessor.getOutputData();
+
 	//Set output data
-	utils.setOutputData("STUB");
+	utils.setOutputData((char*) outputData);
 
 	//Output data
 	if (stricmp(parser.OUTPUT_FILE, "stdout") == 0) {

@@ -37,7 +37,7 @@ bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 		/* getopt_long stores the option index here. */
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "edbhi:o:a:f:k:", long_options,
+		c = getopt_long(argc, argv, "edbhi:o:m:f:k:", long_options,
 				&option_index);
 
 		/* Detect the end of the options. */
@@ -130,18 +130,12 @@ void CommandLineParser::PRINT_HELP(char *exeName) {
 	printf("\tUse \"stdin\" for keyboard input\n\n");
 	printf("--output <output_file>, -o <output_file> : Specify input file\n");
 	printf("\tUse \"stdout\" for screen output\n\n");
-	printf(
-			"--key <string>, -k <string> : Key for encryption/decryption (max 25 chars)\n\n");
-	printf(
-			"--algorithm <string>, -a <string> : Available algorithm: ECB, CBC, CFB\n");
+	printf("--key <string>, -k <string> : Key for encryption/decryption (max 25 chars)\n\n");
+	printf("--mode <string>, -m <string> : Available mode: ECB, CBC, CFB\n");
 	printf("\tECB  : Electronic Code Book mode\n");
 	printf("\tCBC  : Cipher Block Chaining mode\n");
 	printf("\tCFB : CFB-8bit mode\n\n");
-	printf(
-			"--format <string>, -f <string> : Specify output format: normal, wo_space, five\n");
-	printf("\tnormal   : Same as input\n");
-	printf("\two_space : Without spaces\n");
-	printf("\tfive     : Group five by five\n");
+
 	printf("--****--\n");
 }
 

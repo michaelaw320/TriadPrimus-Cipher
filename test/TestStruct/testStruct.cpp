@@ -25,8 +25,12 @@ int main() {
 	//data initialized, now reinterpreting for struct
 	Block *blk;
 	Block *blk2;
+	Block cpyBlk;
 	blk =  (Block*) data;
 	blk2 = blk + 1;
+	cpyBlk = *(blk);
+
+	cpyBlk.byte[7] = 'x';
 
 	cout << "Original Data: " << endl;
 	for(i = 0; i < 64; i++) {
@@ -44,6 +48,12 @@ int main() {
 		for (i = 0; i < sizeof(Block); i++) {
 			cout << blk2->byte[i] << " ";
 		}
+	cout << endl;
+
+	cout << "cpyBlk data: " << endl;
+			for (i = 0; i < sizeof(Block); i++) {
+				cout << cpyBlk.byte[i] << " ";
+			}
 	cout << endl;
 	return 0;
 }
