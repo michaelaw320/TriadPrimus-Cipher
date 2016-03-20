@@ -37,7 +37,7 @@ bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 		/* getopt_long stores the option index here. */
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "edbhi:o:m:f:k:", long_options,
+		c = getopt_long(argc, argv, "edbhi:o:m:k:", long_options,
 				&option_index);
 
 		/* Detect the end of the options. */
@@ -87,6 +87,7 @@ bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 		}
 	}
 	if (CommandLineParser::CHECK_PARAM()) {
+		BINARY_MODE = true; //force binary mode
 		return true;
 	} else {
 		return false;
@@ -125,7 +126,7 @@ void CommandLineParser::PRINT_HELP(char *exeName) {
 	printf("--help, -h \t: Print this help\n");
 	printf("--encrypt, -e \t: Encrypt Mode\n");
 	printf("--decrypt, -d \t: Decrypt Mode\n");
-	printf("--binary, -b \t: Operates in binary mode, algo must be CBC\n");
+	//printf("--binary, -b \t: Operates in binary mode, algo must be CBC\n");
 	printf("--input <input_file>, -i <input_file> : Specify input file\n");
 	printf("\tUse \"stdin\" for keyboard input\n\n");
 	printf("--output <output_file>, -o <output_file> : Specify input file\n");

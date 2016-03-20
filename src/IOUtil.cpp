@@ -13,6 +13,7 @@ IOUtil::IOUtil() {
 	inputData = NULL;
 	inputLen = 0;
 	outputData = NULL;
+	outputLen = 0;
 }
 
 IOUtil::~IOUtil() {
@@ -94,7 +95,7 @@ void IOUtil::outputFile(char* filename, bool isBinaryMode) {
 	if (isBinaryMode) {
 		outputFile.open(filename, ios::out | ios::binary);
 		if (outputFile.is_open()) {
-			outputFile.write(outputData, inputLen);
+			outputFile.write(outputData, outputLen);
 			outputFile.close();
 		} else {
 			throw "Cannot open output file!";
@@ -108,4 +109,8 @@ void IOUtil::outputFile(char* filename, bool isBinaryMode) {
 			throw "Cannot open output file!";
 		}
 	}
+}
+
+void IOUtil::setOutputLen(int len) {
+	outputLen = len;
 }

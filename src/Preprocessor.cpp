@@ -44,7 +44,7 @@ void Preprocessor::copyToBlock() {
 			if (i == blockRemainder) {
 				lastBlk.byte[i] = 0x80;
 			} else {
-				lastBlk.byte[i] = 0; //padding
+				lastBlk.byte[i] = 0x1; //padding
 			}
 
 		}
@@ -54,25 +54,23 @@ void Preprocessor::copyToBlock() {
 
 void Preprocessor::generateOutput(bool removePaddingFlag) {
 	int size = blocks.size() * sizeof(Block); // size in bytes
+	if (removePaddingFlag) {
+		if (isPadded()) {
+			size = size - paddingCount;
+		}
+	}
 	output = (unsigned char*) calloc(size, sizeof(unsigned char));
 	unsigned int i, j, n;
 	n = 0;
 	for (i = 0; i < blocks.size(); i++) {
 		for (j = 0; j < 8; j ++) {
-			output[n] = blocks.at(i).byte[j];
-			n++;
-		}
-	}
-	if (removePaddingFlag) {
-		if (isPadded()) {
-			size = size - paddingCount;
-			unsigned char* tmpPtr;
-			tmpPtr = (unsigned char*) realloc(output, size);
-			if (tmpPtr != NULL) {
-				output = tmpPtr;
+			if (n < (unsigned int) size) {
+				output[n] = blocks.at(i).byte[j];
+				n++;
 			}
 		}
 	}
+
 	outputLen = size;
 }
 
@@ -87,7 +85,6 @@ int Preprocessor::getOutputLen() {
 bool Preprocessor::isPadded() {
 	Block lastblk = blocks.at(blocks.size()-1);
 	int i,j;
-	int count;
 	for (i = 0; i < 8; i++) { //scans for 0x80 occurence
 		if (lastblk.byte[i] == 0x80) {
 			bool isZero = true; //asume next byte is 0

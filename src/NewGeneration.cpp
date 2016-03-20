@@ -19,35 +19,49 @@ NewGeneration::~NewGeneration() {
 }
 
 void NewGeneration::scramble() {
+	generateTableOfDataPlacement();
+	int i, j;
+	for (i=0; i < workingBlock->size(); i++) {
+		j = tableOfDataPlacement.at(i);
+		//swap block
+		Block tmp;
+		tmp = workingBlock->at(i);
+		workingBlock->at(i) = workingBlock->at(j);
+		workingBlock->at(j) = tmp;
+	}
 }
 
 void NewGeneration::descramble() {
+	generateTableOfDataPlacement();
+	int i, j;
+	for (i=0; i < workingBlock->size(); i++) {
+		j = tableOfDataPlacement.at(i);
+		//swap block
+		Block tmp;
+		tmp = workingBlock->at(j);
+		workingBlock->at(j) = workingBlock->at(i);
+		workingBlock->at(i) = tmp;
+	}
 }
 
+
 void NewGeneration::generateTableOfDataPlacement() {
-	/*
-	 * Translate this from Java Module:
-	 public static int[] getShuffledInts(String strSeed, int min, int max){
-        // bentuk seed untuk random
-        long seed = 0;
-        for (int i = 0; i < strSeed.length(); i++)
-            seed += (long)strSeed.charAt(i);
+	long seed = 0;
+	int i;
+	for (i = 0; i < key.length(); i++) {
+		seed += (long) key[i];
+	}
+	int blockCounts = workingBlock->size();
 
-        // buat array berisi angka dari min sd max
-        List<Integer> arrayToShuffle = new ArrayList<Integer>();
-        for (int i = min; i <= max; i++)
-            arrayToShuffle.add(i);
+	//initialize arrayContent
+	vector<int> arrayToShuffle;
+	for (i = 0; i < blockCounts; i++) {
+		arrayToShuffle.push_back(i);
+	}
 
-        // acak-acak dengan seed yang diberikan
-        Collections.shuffle(arrayToShuffle, new Random(seed));
+	//shuffle with C++11 functions
+	shuffle(arrayToShuffle.begin(), arrayToShuffle.end(), default_random_engine(seed));
 
-        // convert ke primitive
-        int shuffledInts[] = new int[max - min + 1];
-        for (int i = 0; i < shuffledInts.length; i++){
-            shuffledInts[i] = arrayToShuffle.get(i);
-        }
+	tableOfDataPlacement = arrayToShuffle;
 
-        return shuffledInts;
-    }
-	 */
 }

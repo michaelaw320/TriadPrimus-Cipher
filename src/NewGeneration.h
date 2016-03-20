@@ -16,6 +16,8 @@
 #include "Block.h"
 #include <string>
 #include <vector>
+#include <random>
+#include <algorithm>
 
 class NewGeneration {
 public:

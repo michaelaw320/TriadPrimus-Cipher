@@ -60,13 +60,14 @@ int main(int argc, char **argv) {
 		//last stage, scramble before write
 		NewGeneration generation(key, ptrToBlocks);
 		generation.scramble();
-
 		dataProcessor.generateOutput(false);
 	} else {
 		//Decrypt Mode
 		//Descramble before doing anything
 		NewGeneration generation(key, ptrToBlocks);
 		generation.descramble();
+
+		//do something else
 
 		dataProcessor.generateOutput(true);
 	}
@@ -76,6 +77,7 @@ int main(int argc, char **argv) {
 
 	//Set output data
 	utils.setOutputData((char*) outputData);
+	utils.setOutputLen(dataProcessor.getOutputLen());
 
 	//Output data
 	if (stricmp(parser.OUTPUT_FILE, "stdout") == 0) {

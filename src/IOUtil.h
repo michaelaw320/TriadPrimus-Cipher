@@ -19,6 +19,7 @@ public:
 	virtual ~IOUtil();
 	char* getInputData();
 	int getInputLen();
+	void setOutputLen(int len);
 	void setOutputData(char* data);
 	void readFromStdin(bool isEncrypt);
 	void readFromFile(char* filename, bool isBinaryMode);
@@ -28,6 +29,7 @@ private:
 	char* inputData;
 	int inputLen;
 	char* outputData;
+	int outputLen;
 };
 
 #endif /* IOUTIL_H_ */
