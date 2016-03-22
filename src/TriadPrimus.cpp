@@ -7,15 +7,23 @@
 
 #include "TriadPrimus.h"
 
-TriadPrimus::TriadPrimus() {
-	// TODO Auto-generated constructor stub
+using namespace std;
 
+TriadPrimus::TriadPrimus(int _rounds) {
+	// TODO Auto-generated constructor stub
+	rounds = _rounds;
 }
 
 TriadPrimus::~TriadPrimus() {
 	// TODO Auto-generated destructor stub
 }
 
+void TriadPrimus::encrypt(Block* blockToOperate, Key currentKey) {
+	int i;
+}
+
+void TriadPrimus::decrypt(Block* blockToOperate, Key currentKey) {
+}
 //ntar algonya
 /**
  * For each block do

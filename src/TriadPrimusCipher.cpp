@@ -51,11 +51,17 @@ int main(int argc, char **argv) {
 	Preprocessor dataProcessor(ptrToData, inputDataLen);
 	vector<Block>* ptrToBlocks = dataProcessor.getPtrToBlocks();
 
+	ModeSelector selector(parser.ENCRYPT_FLAG, key, ptrToBlocks);
 	unsigned char* outputData;
 	if(parser.ENCRYPT_FLAG) {
 		//Encrypt Mode
 		if(stricmp(parser.OPT_MODE, parser.MODE_ECB)) {
-
+			selector.ECB();
+		} else if (stricmp(parser.OPT_MODE, parser.MODE_CBC)) {
+			Block randomIV = NewGeneration::generateRandomIVBlock();
+			selector.CBC(randomIV);
+		} else if (stricmp(parser.OPT_MODE, parser.MODE_CFB)) {
+			selector.CFB();
 		}
 		//last stage, scramble before write
 		NewGeneration generation(key, ptrToBlocks);
@@ -66,6 +72,14 @@ int main(int argc, char **argv) {
 		//Descramble before doing anything
 		NewGeneration generation(key, ptrToBlocks);
 		generation.descramble();
+
+		if(stricmp(parser.OPT_MODE, parser.MODE_ECB)) {
+			selector.ECB();
+		} else if (stricmp(parser.OPT_MODE, parser.MODE_CBC)) {
+			selector.CBC();
+		} else if (stricmp(parser.OPT_MODE, parser.MODE_CFB)) {
+			selector.CFB();
+		}
 
 		//do something else
 

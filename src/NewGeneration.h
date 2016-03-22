@@ -18,6 +18,8 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
 
 class NewGeneration {
 public:
@@ -25,7 +27,7 @@ public:
 	virtual ~NewGeneration();
 	void scramble();
 	void descramble();
-
+	static Block generateRandomIVBlock();
 private:
 	void generateTableOfDataPlacement();
 	std::string key;

@@ -16,8 +16,6 @@
 #include <cstdlib>
 #include "Block.h"
 
-#include<iostream>
-
 class Preprocessor {
 public:
 	Preprocessor(unsigned char* inputData, int inputLen);

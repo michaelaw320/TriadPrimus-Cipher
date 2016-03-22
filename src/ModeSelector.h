@@ -13,12 +13,30 @@
 #define SRC_MODESELECTOR_H_
 
 #include "Block.h"
+#include "PrimusKey.h"
+#include "BlockOperations.h"
 #include <vector>
+#include <string>
 
 class ModeSelector {
 public:
-	ModeSelector();
+	ModeSelector(bool _isEncryptMode, std::string _key, std::vector<Block> *ptrToBlk);
 	virtual ~ModeSelector();
+	void ECB();
+	void CBC(Block _IV);
+	void CBC();
+	void CFB();
+private:
+	void ECBEncrypt();
+	void ECBDecrypt();
+	void CBCEncrypt();
+	void CBCDecrypt();
+	void CFBEncrypt();
+	void CFBDecrypt();
+	bool isEncryptMode;
+	std::string key;
+	std::vector<Block> *ptrToBlock;
+	Block IV;
 };
 
 #endif /* SRC_MODESELECTOR_H_ */

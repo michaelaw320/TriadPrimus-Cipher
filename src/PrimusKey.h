@@ -17,13 +17,16 @@ typedef struct {
 
 class PrimusKey {
 public:
-	PrimusKey();
-	virtual ~PrimusKey();
+	PrimusKey(std::string _key, int _blkCount);
 	Key getKey(int blkNum);
-	unsigned char getTwoKeyBit(int blkPos);
+	void reverseKey();
+	static unsigned char getTwoKeyBitAt(Key &key, int bytePos, int bitPos);
+
 private:
+	void expandKey();
 	std::vector<Key> keyList; //its final length should be equal to blocks count
 	std::string key;
+	int blkCount;
 
 };
 

@@ -15,11 +15,16 @@
 
 #include "Block.h"
 #include "BlockOperations.h"
+#include "PrimusKey.h"
 
 class TriadPrimus {
 public:
-	TriadPrimus();
+	TriadPrimus(int _rounds);
 	virtual ~TriadPrimus();
+	void encrypt(Block *blockToOperate, Key currentKey);
+	void decrypt(Block *blockToOperate, Key currentKey);
+private:
+	int rounds;
 };
 
 #endif /* SRC_TRIADPRIMUS_H_ */

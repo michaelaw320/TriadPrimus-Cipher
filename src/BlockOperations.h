@@ -20,4 +20,6 @@ void ModifyLastTwoBits (Block *blk, unsigned char val);
 void ModifyFirstTwoBits (Block *blk, unsigned char val);
 void PrimusShift (Block *blk);
 
+void XorEntireBlock(Block *targetBlock, Block withBlock);
+
 #endif /* SRC_BLOCKOPERATIONS_H_ */

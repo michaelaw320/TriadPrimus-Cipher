@@ -65,3 +65,10 @@ void PrimusShift (Block *blk) {
 		blk->byte[i] = currentByteVal;
 	}
 }
+
+void XorEntireBlock(Block* targetBlock, Block withBlock) {
+	int i;
+	for (i = 0 ; i < 8; i++) {
+		targetBlock->byte[i] ^= withBlock.byte[i];
+	}
+}

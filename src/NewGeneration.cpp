@@ -44,6 +44,15 @@ void NewGeneration::descramble() {
 	}
 }
 
+Block NewGeneration::generateRandomIVBlock() {
+	Block randomBlock;
+	int i;
+	srand((unsigned)time(NULL));
+	for(i = 0; i < 8; i++) {
+		randomBlock.byte[i] = rand() % 255;
+	}
+	return randomBlock;
+}
 
 void NewGeneration::generateTableOfDataPlacement() {
 	long seed = 0;
