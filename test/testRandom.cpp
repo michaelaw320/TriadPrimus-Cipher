@@ -9,7 +9,7 @@ int main() {
 	int i;
 	srand((unsigned)time(NULL));
 	for(i = 0; i < 8; i++) {
-		data[i] = rand() % 255;
+		data[i] = rand() % 256;
 		printf("%d ", data[i]);
 	}
 	cout << endl;

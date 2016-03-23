@@ -78,15 +78,27 @@ void IOUtil::readFromFile(char* filename, bool isBinaryMode) {
 
 void IOUtil::outputStdout(bool isEncrypt) {
 	if (isEncrypt) {
-		cout << "Plaintext:" << endl;
+		/*cout << "Plaintext:" << endl;
 		cout << inputData << endl;
 		cout << "Ciphertext:" << endl;
-		cout << outputData << endl;
+		cout << outputData << endl;*/
+		cout << "Output Data: ";
+		for(int i = 0; i < outputLen; i++) {
+			if(i%8 == 0) cout << endl;
+			printf("%x ", (unsigned char) outputData[i]);
+		}
+		cout << endl;
 	} else {
-		cout << "Ciphertext:" << endl;
+		/*cout << "Ciphertext:" << endl;
 		cout << inputData << endl;
 		cout << "Plaintext:" << endl;
-		cout << outputData << endl;
+		cout << outputData << endl;*/
+		cout << "Output Data: ";
+		for(int i = 0; i < outputLen; i++) {
+			if(i%8 == 0) cout << endl;
+			printf("%x ", (unsigned char) outputData[i]);
+		}
+		cout << endl;
 	}
 }
 

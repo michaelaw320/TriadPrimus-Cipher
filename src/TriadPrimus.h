@@ -16,6 +16,8 @@
 #include "Block.h"
 #include "BlockOperations.h"
 #include "PrimusKey.h"
+#include <vector>
+#include <string>
 
 class TriadPrimus {
 public:
@@ -24,6 +26,10 @@ public:
 	Block encrypt(Block plainBlock, Key currentKey);
 	Block decrypt(Block cipherBlock, Key currentKey);
 private:
+	std::vector<unsigned long long> generateSubKeys(Key currentKey);
+	unsigned long long llFromByte(unsigned char* byte);
+	unsigned char getTwoBits(unsigned long long subkey, int bitPos);
+	void SwitchTwoBitPos(unsigned char *bits);
 	int rounds;
 };
 

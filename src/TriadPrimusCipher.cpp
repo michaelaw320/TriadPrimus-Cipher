@@ -65,15 +65,15 @@ int main(int argc, char **argv) {
 		} */
 		//last stage, scramble before write
 		NewGeneration generation(key, ptrToBlocks);
-		generation.substitute(parser.ENCRYPT_FLAG);
-		generation.scramble();
+		//generation.substitute(parser.ENCRYPT_FLAG);
+		//generation.scramble();
 		dataProcessor.generateOutput(false);
 	} else {
 		//Decrypt Mode
 		//Descramble before doing anything
 		NewGeneration generation(key, ptrToBlocks);
-		generation.descramble();
-		generation.substitute(parser.ENCRYPT_FLAG);
+		//generation.descramble();
+		//generation.substitute(parser.ENCRYPT_FLAG);
 
 		if(stricmp(parser.OPT_MODE, parser.MODE_ECB) == 0) {
 			selector.ECB();

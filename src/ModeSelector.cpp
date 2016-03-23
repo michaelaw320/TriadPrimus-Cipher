@@ -12,7 +12,7 @@ ModeSelector::ModeSelector(bool _isEncryptMode, std::string _key, std::vector<Bl
 	isEncryptMode = _isEncryptMode;
 	key = _key;
 	ptrToBlock = ptrToBlk;
-	rounds = 32;
+	rounds = 1;
 }
 
 ModeSelector::~ModeSelector() {

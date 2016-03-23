@@ -18,7 +18,8 @@ unsigned char GetLastTwoBits (Block *blk);
 unsigned char GetFirstTwoBits (Block *blk);
 void ModifyLastTwoBits (Block *blk, unsigned char val);
 void ModifyFirstTwoBits (Block *blk, unsigned char val);
-void PrimusShift (Block *blk);
+void CircularShiftLeft (Block *blk);
+void CircularShiftRight (Block *blk);
 
 void XorEntireBlock(Block *targetBlock, Block withBlock);
 

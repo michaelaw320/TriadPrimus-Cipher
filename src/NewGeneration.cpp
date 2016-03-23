@@ -14,7 +14,7 @@ Block generateRandomIVBlock() {
 	int i;
 	srand((unsigned)time(NULL));
 	for(i = 0; i < 8; i++) {
-		randomBlock.byte[i] = rand() % 255;
+		randomBlock.byte[i] = rand() % 256;
 	}
 	return randomBlock;
 }

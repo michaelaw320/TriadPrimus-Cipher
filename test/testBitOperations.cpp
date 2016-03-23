@@ -48,7 +48,7 @@ void ModifyFirstTwoBits (Block *blk, unsigned char val){
 	blk->byte[0] = newFirstByte;
 }
 
-void PrimusShift (Block *blk) {
+void CircularShiftLeft (Block *blk) {
 	unsigned char firstByte = blk->byte[0];
 	unsigned char twoMSBMask = 0xC0; //11000000
 	unsigned char twoLSBMask = 0x3; // 00000011
@@ -70,6 +70,33 @@ void PrimusShift (Block *blk) {
 		}
 		blk->byte[i] = currentByteVal;
 	}
+}
+
+void CircularShiftRight (Block *blk) {
+	unsigned char lastByte = blk->byte[7];
+	unsigned char twoMSBMask = 0xC0;
+	unsigned char twoLSBMask = 0x3;
+
+	unsigned char twoLSBLastByte = lastByte & twoLSBMask;
+	unsigned char twoLSBTOMSB = twoLSBLastByte << 6;
+	unsigned int i;
+	for(i = 7; i > 0; i--) {
+		//7 last bytes
+		unsigned char currentByteVal = blk->byte[i];
+		currentByteVal = currentByteVal >> 2; //move to right, delete LSB
+		currentByteVal = currentByteVal & ~twoMSBMask; //sanitize first 2 bits
+		unsigned char prevByteVal = blk->byte[i-1];
+		unsigned char prevLSB = prevByteVal & twoLSBMask;
+		unsigned char prevLSBTOMSB = (prevLSB << 6) & twoMSBMask;
+		currentByteVal = currentByteVal | prevLSBTOMSB;
+		blk->byte[i] = currentByteVal;
+	}
+	//special condition for first byte done last
+	unsigned char currentByteVal = blk->byte[0];
+	currentByteVal = currentByteVal >> 2;
+	currentByteVal = currentByteVal & ~twoMSBMask;
+	currentByteVal = currentByteVal | twoLSBTOMSB;
+	blk->byte[0] = currentByteVal;
 }
 
 
@@ -118,8 +145,15 @@ int main() {
 	}
 	printf("\n");
 	
-	printf("Result after shift: \n");
-	PrimusShift(&blk);
+	printf("Result after shift left: \n  ");
+	CircularShiftLeft(&blk);
+	for (i = 0; i < 8; i++) {
+		printBits(blk.byte[i]);
+	}
+	printf("\n");
+
+	printf("Result after shift right: \n");
+	CircularShiftRight(&blk);
 	for (i = 0; i < 8; i++) {
 		printBits(blk.byte[i]);
 	}
