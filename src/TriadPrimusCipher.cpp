@@ -57,12 +57,12 @@ int main(int argc, char **argv) {
 		//Encrypt Mode
 		if(stricmp(parser.OPT_MODE, parser.MODE_ECB) == 0) {
 			selector.ECB();
-		} else if (stricmp(parser.OPT_MODE, parser.MODE_CBC) == 0) {
+		} else if (stricmp(parser.OPT_MODE, parser.MODE_CBC) == 0 || stricmp(parser.OPT_MODE, parser.MODE_CFB) == 0) {
 			Block randomIV = generateRandomIVBlock();
 			selector.CBC(randomIV);
-		} else if (stricmp(parser.OPT_MODE, parser.MODE_CFB) == 0) {
+		} /*else if (stricmp(parser.OPT_MODE, parser.MODE_CFB) == 0) {
 			selector.CFB();
-		}
+		} */
 		//last stage, scramble before write
 		NewGeneration generation(key, ptrToBlocks);
 		generation.scramble();
@@ -75,13 +75,11 @@ int main(int argc, char **argv) {
 
 		if(stricmp(parser.OPT_MODE, parser.MODE_ECB) == 0) {
 			selector.ECB();
-		} else if (stricmp(parser.OPT_MODE, parser.MODE_CBC) == 0) {
+		} else if (stricmp(parser.OPT_MODE, parser.MODE_CBC) == 0 || stricmp(parser.OPT_MODE, parser.MODE_CFB) == 0) {
 			selector.CBC();
-		} else if (stricmp(parser.OPT_MODE, parser.MODE_CFB) == 0) {
+		} /*else if (stricmp(parser.OPT_MODE, parser.MODE_CFB) == 0) {
 			selector.CFB();
-		}
-
-		//do something else
+		} */
 
 		dataProcessor.generateOutput(true);
 	}
