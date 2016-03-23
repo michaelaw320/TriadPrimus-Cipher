@@ -27,8 +27,5 @@
 *.out
 *.app
 
-# Eclipse Project Files
-.cproject
-.project
-.settings
 /Debug/
+/Release/
