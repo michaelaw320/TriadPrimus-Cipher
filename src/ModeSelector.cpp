@@ -81,11 +81,14 @@ void ModeSelector::CBCEncrypt() {
 	PrimusKey K(key, ptrToBlock->size());
 	Block prevCipher;
 	prevCipher = IV;
+
 	for (i = 0; i < ptrToBlock->size(); i++) {
 		//First block is to be xored with IV
 		//XorEntireBlock(&ptrToBlock[i], prevCipher);
 		// Ciphertext = E(K, Block plaintext)
 		// prevCipher = cipherText, repeat
+
+
 		Block currentBlock = ptrToBlock->at(i);
 		XorEntireBlock(&currentBlock, prevCipher);
 		Block ciphertext = E.encrypt(currentBlock, K.getKey(i));
@@ -103,6 +106,7 @@ void ModeSelector::CBCDecrypt() {
 	PrimusKey K(key, ptrToBlock->size());
 	Block prevCipher;
 	prevCipher = IV;
+
 	for (i = 0; i < ptrToBlock->size(); i++) {
 		//Plaintext = D(K, Block ciphertext)
 		//XorEntireBlock(ptrToBlock[i], prevPlaintext);
@@ -112,6 +116,8 @@ void ModeSelector::CBCDecrypt() {
 		XorEntireBlock(&plaintext, prevCipher);
 		ptrToBlock->at(i) = plaintext;
 		prevCipher = currentBlock;
+
+
 	}
 }
 

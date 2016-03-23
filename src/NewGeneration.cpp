@@ -44,7 +44,8 @@ void NewGeneration::scramble() {
 void NewGeneration::descramble() {
 	generateTableOfDataPlacement();
 	int i, j;
-	for (i=0; i < workingBlock->size(); i++) {
+	//for (i=0; i < workingBlock->size(); i++) {
+	for(i = workingBlock->size()-1 ; i >= 0; i--) {
 		j = tableOfDataPlacement.at(i);
 		//swap block
 		Block tmp;
