@@ -29,12 +29,14 @@ public:
 	virtual ~NewGeneration();
 	void scramble();
 	void descramble();
+	void substitute(bool isEncryptMode);
 private:
 	void generateTableOfDataPlacement();
+	void generateSubstitutionTable();
 	std::string key;
 	std::vector<Block>* workingBlock; //modifying content will modify blocks content directly
 	std::vector<int> tableOfDataPlacement; //scramble descramble purpose
-
+	std::vector<unsigned char> subsTable;
 };
 
 #endif /* SRC_NEWGENERATION_H_ */

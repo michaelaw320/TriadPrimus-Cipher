@@ -75,3 +75,51 @@ void NewGeneration::generateTableOfDataPlacement() {
 	tableOfDataPlacement = arrayToShuffle;
 
 }
+
+void NewGeneration::substitute(bool isEncryptMode) {
+	int i,j,k;
+	generateSubstitutionTable();
+	if (isEncryptMode) {
+		for(i=0; i < workingBlock->size(); i++) {
+
+			for(j=0; j < 8; j++) {
+				unsigned char currentChar = workingBlock->at(i).byte[j];
+				currentChar = subsTable.at(currentChar); //substitute current char
+				workingBlock->at(i).byte[j] = currentChar;
+			}
+		}
+	} else {
+		for(i=0; i < workingBlock->size(); i++) {
+			for(j=0; j < 8; j++) {
+				unsigned char value = workingBlock->at(i).byte[j];
+				unsigned char idx;
+				for(k = 0; k < 256; k++) { //lookup table for the particular value
+					if (subsTable.at(k) == value) {
+						idx = k;
+						break;
+					}
+				}
+				workingBlock->at(i).byte[j] = idx;
+			}
+		}
+	}
+}
+
+void NewGeneration::generateSubstitutionTable() {
+	long seed = 0;
+	int i;
+	for (i = 0; i < key.length(); i++) {
+		seed += (long) key[i];
+	}
+
+	//initialize arrayContent
+	vector<unsigned char> arrayToShuffle;
+	for (i = 0; i < 256; i++) {
+		arrayToShuffle.push_back(i);
+	}
+
+	//shuffle with C++11 functions
+	shuffle(arrayToShuffle.begin(), arrayToShuffle.end(), default_random_engine(seed));
+
+	subsTable = arrayToShuffle;
+}
