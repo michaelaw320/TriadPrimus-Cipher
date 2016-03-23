@@ -30,36 +30,6 @@ Key PrimusKey::getKey(int blkNum) {
 	return keyList[blkNum];
 }
 
-void PrimusKey::reverseKey() {
-	//reverse list level
-	reverse(keyList.begin(), keyList.end());
-	//reverse Key block byte level
-	int i,j;
-	for(Key& currentKey: keyList) {
-		j = 7;
-		for (i = 0; i < 3; i++) {
-			unsigned char temp;
-			temp = currentKey.key[i];
-			currentKey.key[i] = currentKey.key[j];
-			currentKey.key[j] = temp;
-			j--;
-		}
-	}
-	//reverse Key block bit level
-	for(Key& currentKey: keyList) {
-		for(int i = 0; i < 8; i++) {
-			unsigned char currentChar = currentKey.key[i];
-			unsigned char ret;
-			for (int j = 0; j < 8; ++j) {
-				if (currentChar & (1<<j)) ret += 1;
-				ret <<= 1;
-			}
-			currentKey.key[i] = ret;
-		}
-	}
-
-}
-
 void PrimusKey::expandKey() {
 	int targetLen = blkCount*8;
 	int currentKeyLen = key.length();

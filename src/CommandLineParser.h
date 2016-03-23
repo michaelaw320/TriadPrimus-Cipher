@@ -14,6 +14,7 @@
 #include <iostream>
 #include <cstring>
 #include <string>
+#include <cstdlib>
 
 class CommandLineParser {
 public:
@@ -25,6 +26,7 @@ public:
 	char* OUTPUT_FILE;
 	char* OPT_MODE;
 	char* KEY;
+	int PRIMUS_ROUNDS;
 
 	const char* MODE_ECB;
 	const char* MODE_CBC;

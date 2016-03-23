@@ -28,7 +28,7 @@ Block TriadPrimus::encrypt(Block plainBlock, Key currentKey) {
 	for(i=0; i < rounds; i++) {
 		unsigned long long currentSubkey = subkeys[i];
 		j = 0;
-		for(n=0; n < 31; n++) { //do 32 times
+		for(n=0; n < 32; n++) { //do 32 times
 			keyBits = getTwoBits(currentSubkey, j);
 
 			rightBits = GetLastTwoBits(&ret);
@@ -56,10 +56,11 @@ Block TriadPrimus::decrypt(Block cipherBlock, Key currentKey) {
 		ret = cipherBlock;
 		int i,j,n;
 		vector<unsigned long long> subkeys = generateSubKeys(currentKey);
+		reverse(subkeys.begin(), subkeys.end());
 		for(i=0; i < rounds; i++) {
 			unsigned long long currentSubkey = subkeys[i];
-			j = 0;
-			for(n=0; n < 31; n++) { //do 32 times
+			j = 62;
+			for(n=0; n < 32; n++) { //do 32 times
 				keyBits = getTwoBits(currentSubkey, j);
 
 				CircularShiftRight(&ret);
@@ -74,7 +75,7 @@ Block TriadPrimus::decrypt(Block cipherBlock, Key currentKey) {
 				SwitchTwoBitPos(&leftBits);
 				ModifyFirstTwoBits(&ret, leftBits);
 
-				j+=2;
+				j-=2;
 			}
 		}
 		return ret;
@@ -97,14 +98,6 @@ std::vector<unsigned long long> TriadPrimus::generateSubKeys(Key currentKey) {
 		unsigned long long subkey = llFromByte(data);
 		subkeys.push_back(subkey);
 	}
-		cout << "Current Key: ";
-		for(i = 0; i < 8; i++) printf("%c", currentKey.key[i]);
-		cout << endl;
-		cout << "Subkeys: "<< endl;
-		for(unsigned long long x : subkeys) {
-			printf("%llx ", x);
-		}
-		cout << endl;
 	return subkeys;
 }
 
@@ -124,7 +117,6 @@ unsigned char TriadPrimus::getTwoBits(unsigned long long subkey, int bitPos) {
 	tmp = tmp & ((unsigned long long) mask << (62-bitPos));
 	tmp =  (tmp >> (62-bitPos)) & mask;
 	ret = (unsigned char) tmp;
-	printf("Subkey: %llx ; BitPos: %d;TwoBits: %x\n", subkey,bitPos, ret);
 	return ret;
 }
 

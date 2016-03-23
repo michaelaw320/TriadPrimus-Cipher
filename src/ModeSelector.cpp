@@ -8,11 +8,11 @@
 #include "ModeSelector.h"
 
 
-ModeSelector::ModeSelector(bool _isEncryptMode, std::string _key, std::vector<Block>* ptrToBlk) {
+ModeSelector::ModeSelector(bool _isEncryptMode, std::string _key, std::vector<Block>* ptrToBlk, int _rounds) {
 	isEncryptMode = _isEncryptMode;
 	key = _key;
 	ptrToBlock = ptrToBlk;
-	rounds = 1;
+	rounds = _rounds;
 }
 
 ModeSelector::~ModeSelector() {

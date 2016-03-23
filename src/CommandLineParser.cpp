@@ -15,6 +15,7 @@ CommandLineParser::CommandLineParser() {
 	OUTPUT_FILE = NULL;
 	OPT_MODE = NULL;
 	KEY = NULL;
+	PRIMUS_ROUNDS = 8;
 
 	MODE_ECB = "ECB";
 	MODE_CBC = "CBC";
@@ -33,11 +34,12 @@ bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 				{ "output", required_argument, 0, 'o' },
 				{ "mode", required_argument, 0, 'm' },
 				{ "key", required_argument, 0, 'k' },
+				{ "rounds", optional_argument, 0, 'r' },
 				{ 0, 0, 0, 0 } };
 		/* getopt_long stores the option index here. */
 		int option_index = 0;
 
-		c = getopt_long(argc, argv, "edbhi:o:m:k:", long_options,
+		c = getopt_long(argc, argv, "edbhi:o:m:k:r:", long_options,
 				&option_index);
 
 		/* Detect the end of the options. */
@@ -78,6 +80,10 @@ bool CommandLineParser::PARSE_PARAM(int argc, char **argv) {
 			KEY = optarg;
 			break;
 
+		case 'r':
+			PRIMUS_ROUNDS = atoi(optarg);
+			break;
+
 		case '?':
 			/* getopt_long already printed an error message. */
 			return false;
@@ -116,6 +122,8 @@ bool CommandLineParser::CHECK_PARAM() {
 	} else if (KEY == NULL) {
 		std::cerr << "Please specify key" << std::endl;
 		return false;
+	} else if (PRIMUS_ROUNDS == 8) {
+		std::cout << "Using default 8 rounds for Primus Function" << std::endl;
 	}
 	return true;
 }
@@ -131,7 +139,8 @@ void CommandLineParser::PRINT_HELP(char *exeName) {
 	printf("\tUse \"stdin\" for keyboard input\n\n");
 	printf("--output <output_file>, -o <output_file> : Specify input file\n");
 	printf("\tUse \"stdout\" for screen output\n\n");
-	printf("--key <string>, -k <string> : Key for encryption/decryption (max 25 chars)\n\n");
+	printf("--key <string>, -k <string> : Key for encryption/decryption \n\n");
+	printf("--rounds <integer>, -r <rounds> : Specify how many rounds for Primus Function (default: 8) \n\n");
 	printf("--mode <string>, -m <string> : Available mode: ECB, CBC, CFB\n");
 	printf("\tECB  : Electronic Code Book mode\n");
 	printf("\tCBC  : Cipher Block Chaining mode\n");

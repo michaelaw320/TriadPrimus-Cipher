@@ -22,7 +22,6 @@ class PrimusKey {
 public:
 	PrimusKey(std::string _key, int _blkCount);
 	Key getKey(int blkNum);
-	void reverseKey();
 
 private:
 	void expandKey();

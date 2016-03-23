@@ -18,6 +18,7 @@
 #include "PrimusKey.h"
 #include <vector>
 #include <string>
+#include <algorithm>
 
 class TriadPrimus {
 public:

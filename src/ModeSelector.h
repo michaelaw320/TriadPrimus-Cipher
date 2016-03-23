@@ -21,7 +21,7 @@
 
 class ModeSelector {
 public:
-	ModeSelector(bool _isEncryptMode, std::string _key, std::vector<Block> *ptrToBlk);
+	ModeSelector(bool _isEncryptMode, std::string _key, std::vector<Block> *ptrToBlk, int _rounds);
 	virtual ~ModeSelector();
 	void ECB();
 	void CBC(Block _IV);
