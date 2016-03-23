@@ -18,11 +18,24 @@ TriadPrimus::~TriadPrimus() {
 	// TODO Auto-generated destructor stub
 }
 
-void TriadPrimus::encrypt(Block* blockToOperate, Key currentKey) {
+Block TriadPrimus::encrypt(Block plainBlock, Key currentKey) {
+	//Dummy encryption
+	Block ret;
 	int i;
+	for(i=0; i < 8; i++) {
+		ret.byte[i] = plainBlock.byte[i] ^ currentKey.key[i];
+	}
+	return ret;
 }
 
-void TriadPrimus::decrypt(Block* blockToOperate, Key currentKey) {
+Block TriadPrimus::decrypt(Block cipherBlock, Key currentKey) {
+	//Dummy decryption
+	Block ret;
+	int i;
+	for(i=0; i < 8; i++) {
+		ret.byte[i] = cipherBlock.byte[i] ^ currentKey.key[i];
+	}
+	return ret;
 }
 //ntar algonya
 /**

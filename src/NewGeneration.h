@@ -21,13 +21,14 @@
 #include <ctime>
 #include <cstdlib>
 
+Block generateRandomIVBlock();
+
 class NewGeneration {
 public:
 	NewGeneration(std::string _key, std::vector<Block>* blockToModify);
 	virtual ~NewGeneration();
 	void scramble();
 	void descramble();
-	static Block generateRandomIVBlock();
 private:
 	void generateTableOfDataPlacement();
 	std::string key;

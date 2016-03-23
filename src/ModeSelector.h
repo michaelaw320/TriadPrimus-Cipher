@@ -15,6 +15,7 @@
 #include "Block.h"
 #include "PrimusKey.h"
 #include "BlockOperations.h"
+#include "TriadPrimus.h"
 #include <vector>
 #include <string>
 
@@ -37,6 +38,7 @@ private:
 	std::string key;
 	std::vector<Block> *ptrToBlock;
 	Block IV;
+	int rounds;
 };
 
 #endif /* SRC_MODESELECTOR_H_ */

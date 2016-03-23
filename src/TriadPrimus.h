@@ -21,8 +21,8 @@ class TriadPrimus {
 public:
 	TriadPrimus(int _rounds);
 	virtual ~TriadPrimus();
-	void encrypt(Block *blockToOperate, Key currentKey);
-	void decrypt(Block *blockToOperate, Key currentKey);
+	Block encrypt(Block plainBlock, Key currentKey);
+	Block decrypt(Block cipherBlock, Key currentKey);
 private:
 	int rounds;
 };

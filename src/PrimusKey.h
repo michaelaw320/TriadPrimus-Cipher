@@ -10,17 +10,19 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
 
 typedef struct {
 	unsigned char key[8]; // Key for 1 block length is 64 bit
 } Key;
+
+unsigned char getTwoKeyBitAt(Key &key, int bytePos, int bitPos);
 
 class PrimusKey {
 public:
 	PrimusKey(std::string _key, int _blkCount);
 	Key getKey(int blkNum);
 	void reverseKey();
-	static unsigned char getTwoKeyBitAt(Key &key, int bytePos, int bitPos);
 
 private:
 	void expandKey();
@@ -29,5 +31,6 @@ private:
 	int blkCount;
 
 };
+
 
 #endif /* SRC_PRIMUSKEY_H_ */

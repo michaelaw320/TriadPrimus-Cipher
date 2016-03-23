@@ -44,7 +44,7 @@ void Preprocessor::copyToBlock() {
 			if (i == blockRemainder) {
 				lastBlk.byte[i] = 0x80;
 			} else {
-				lastBlk.byte[i] = 0x1; //padding
+				lastBlk.byte[i] = 0x0; //padding
 			}
 
 		}

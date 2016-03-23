@@ -9,6 +9,16 @@
 
 using namespace std;
 
+Block generateRandomIVBlock() {
+	Block randomBlock;
+	int i;
+	srand((unsigned)time(NULL));
+	for(i = 0; i < 8; i++) {
+		randomBlock.byte[i] = rand() % 255;
+	}
+	return randomBlock;
+}
+
 NewGeneration::NewGeneration(std::string _key, std::vector<Block>* blockToModify) {
 	key = _key;
 	workingBlock = blockToModify;
@@ -42,16 +52,6 @@ void NewGeneration::descramble() {
 		workingBlock->at(j) = workingBlock->at(i);
 		workingBlock->at(i) = tmp;
 	}
-}
-
-Block NewGeneration::generateRandomIVBlock() {
-	Block randomBlock;
-	int i;
-	srand((unsigned)time(NULL));
-	for(i = 0; i < 8; i++) {
-		randomBlock.byte[i] = rand() % 255;
-	}
-	return randomBlock;
 }
 
 void NewGeneration::generateTableOfDataPlacement() {
